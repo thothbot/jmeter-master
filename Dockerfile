@@ -22,3 +22,6 @@ RUN set -ex && \
 
      apk del curl unzip && \
      rm -fr /tmp/*
+
+# Ports to be exposed from the container for JMeter Master
+EXPOSE 60000
