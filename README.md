@@ -5,13 +5,13 @@
  
  By running multiple instances of JMeter as server in multiple machines we can generate as much load as we need.
 
-[[doc/multiple_instances.jpg]]
+![Multiple instances](doc/multiple_instances.jpg)
 
 ## Create testing server
 
 JMeter master and slave communicate as shown in the below picture.
 
-[[doc/master_slave_communications.jpg]]
+![Master-slave comunications](doc/master_slave_communications.jpg)
 
 Install ```Ubuntu Server 16.04 LTS``` and open ports **1099**, **50000**, **60000**
 
@@ -29,7 +29,7 @@ sudo systemctl status docker
 
 ## Run tests on a one server
 
-[[doc/oneserver_tests.jpg]]
+![Run tests on one server](doc/oneserver_tests.jpg)
 
 #### Launch slaves
 
@@ -49,14 +49,14 @@ sudo docker run -dit --name master thothbot/jmeter-master /bin/bash
 ```bash
 sudo docker ps -a
 ```
-[[doc/opened_ports.jpg]]
+![Opened ports](doc/opened_ports.jpg)
 
 #### Get the list of ip addresses for these containers
 
 ```bash
 sudo docker inspect --format '{{ .Name }} => {{ .NetworkSettings.IPAddress }}' $(sudo docker ps -a -q)
 ```
-[[doc/containers_ips.jpg]]
+![Container's ips](doc/containers_ips.jpg)
 
 #### Run tests
 Copy the test into my JMeter master container:
@@ -72,18 +72,18 @@ Lets run the test in master to see if it works fine [not in distributed mode]:
 ./jmeter -n -t test.jmx
 ```
 
-[[doc/mater_tests.jpg]]
+![Tests on master](doc/mater_tests.jpg)
 
 Lets run our test in distributed using docker containers. We just need to append ```-R[slave01,slave02,slave03]```:
 ```bash
 ./jmeter -n -t test.jmx -R172.17.0.2,172.17.0.3,172.17.0.4
 ```
 
-[[doc/mater_tests_distrib.jpg]]
+![Distributed tests on master](doc/mater_tests_distrib.jpg)
 
 ## Run distributes tests
 
-[[doc/distrib_tests.jpg]]
+![Distributed tests](doc/distrib_tests.jpg)
 
 #### Launch slaves
 ```bash
